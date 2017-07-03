@@ -1,0 +1,3 @@
+inventory_homepage:
+    path:     /
+    defaults: { _controller: InventoryBundle:Default:index }
