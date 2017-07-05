@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block navigate %}
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Catégorie</a>
+            </li>
+            <li>
+                <a href="#">détail</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+{% block body %}
+
+<div class="box col-md-6">
+    <a class="btn btn-default" href="{{ path('category_index') }}"><i class="glyphicon glyphicon-list"></i></a><br>
+    <br>
+    <div class="box-inner">
+        <div class="box-header well" data-original-title="">
+            <h2><i class="glyphicon glyphicon-th"></i> Détail d'une catégorie</h2>
+        </div>
+        <div class="box-content">
+            <div class="box-content">
+                <ul class="dashboard-list">
+                    <li>
+                        <strong>Nom :</strong> <a href="#">{{ category.name }}
+                        </a><br>
+                    </li>
+                </ul>
+            </div>
+            {{ form_start(delete_form) }}
+            <input class="btn btn-danger btn-sm" type="submit" value="Supprimer">
+            {{ form_end(delete_form) }}
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

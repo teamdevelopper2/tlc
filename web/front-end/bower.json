@@ -1,0 +1,29 @@
+{
+  "name": "front-end",
+  "homepage": "https://github.com/teamdevelopper2/tlc",
+  "authors": [
+    "bouradiallo86@gmail.com"
+  ],
+  "description": "the application packages",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chosen": "^1.7.0",
+    "jquery-colorbox": "colorbox#^1.6.4",
+    "datatables": "^1.10.15",
+    "Flot": "flot#^0.8.3",
+    "fullcalendar": "^3.4.0",
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "responsive-tables": "*",
+    "bootstrap": "^3.3.7",
+    "bootstrap-tour": "^0.11.0"
+  }
+}

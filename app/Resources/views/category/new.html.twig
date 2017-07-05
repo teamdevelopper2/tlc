@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block navigate %}
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Catégorie</a>
+            </li>
+            <li>
+                <a href="#">Creation</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+{% block body %}
+    <h1>Ajout d'une catégorie</h1>
+    <a class="btn btn-default btn-sm" href="{{ path('category_index') }}"><i class="glyphicon glyphicon-list"></i></a>
+    <br><br>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    <br>
+        <input  class="btn btn-primary btn-sm" type="submit" value="Ajouter" />
+    {{ form_end(form) }}
+{% endblock %}

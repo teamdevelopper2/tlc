@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block navigate %}
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Catégorie</a>
+            </li>
+            <li>
+                <a href="#">Liste</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+{% block body %}
+
+    <a class="btn btn-success btn-sm" href="{{ path('category_new') }}"><i class="glyphicon glyphicon-plus"></i></a>
+
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-user"></i> Liste des catégories</h2>
+
+                    <div class="box-icon">
+                        <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+                        <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                    class="glyphicon glyphicon-chevron-up"></i></a>
+                        <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td><a href="{{ path('category_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
+                                <td>{{ category.name }}</td>
+                                <td class="center">
+                                    <a class="btn btn-success" href="{{ path('category_show', { 'id': category.id }) }}">
+                                        <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                                    </a>
+                                    <a class="btn btn-info" href="{{ path('category_edit', { 'id': category.id }) }}">
+                                        <i class="glyphicon glyphicon-edit icon-white"></i>
+                                    </a>
+                                    <a class="btn btn-danger" href="#">
+                                        <i class="glyphicon glyphicon-trash icon-white"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
