@@ -1,6 +1,22 @@
+inventory_provider:
+    resource: "@InventoryBundle/Controller/ProviderController.php"
+    type:     annotation
+
+inventory_client:
+    resource: "@InventoryBundle/Controller/ClientController.php"
+    type:     annotation
+
+inventory_product:
+    resource: "@InventoryBundle/Controller/ProductController.php"
+    type:     annotation
+
+inventory_category:
+    resource: "@InventoryBundle/Controller/CategoryController.php"
+    type:     annotation
+
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /user
 
 inventory:
     resource: "@InventoryBundle/Resources/config/routing.yml"
