@@ -1,16 +1,23 @@
 {% extends 'base.html.twig' %}
-
+{% block navigate %}
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Fournisseur</a>
+            </li>
+            <li>
+                <a href="#">Creation</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
 {% block body %}
-    <h1>Provider creation</h1>
-
+    <h1>Ajout d'un fournisseur</h1>
+    <a class="btn btn-default btn-sm" href="{{ path('provider_index') }}"><i class="glyphicon glyphicon-list"></i></a>
+    <br><br>
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    <br>
+        <input class="btn btn-sm btn-primary" type="submit" value="Ajouter" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('provider_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

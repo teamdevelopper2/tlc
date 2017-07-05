@@ -3,6 +3,7 @@
 namespace Tlc\InventoryBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,10 @@ class ProviderType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('phone')->add('address')->add('email');
+        $builder->add('name', TextType::class, array('attr' => array('class' => 'form-control')))
+            ->add('phone', TextType::class, array('attr' => array('class' => 'form-control')))
+            ->add('address', TextType::class, array('attr' => array('class' => 'form-control')))
+            ->add('email', TextType::class, array('attr' => array('class' => 'form-control')));
     }
     
     /**

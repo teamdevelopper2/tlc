@@ -1,44 +1,59 @@
 {% extends 'base.html.twig' %}
-
+{% block navigate %}
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Fournisseur</a>
+            </li>
+            <li>
+                <a href="#">détail</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
 {% block body %}
     <h1>Provider</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ provider.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ provider.name }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ provider.phone }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ provider.address }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ provider.email }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="box col-md-6">
+        <a class="btn btn-default" href="{{ path('provider_index') }}"><i class="glyphicon glyphicon-list"></i></a><br>
+        <br>
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-th"></i> Détail d'un fournisseur</h2>
+            </div>
+            <div class="box-content">
+                <div class="box-content">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ provider.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ provider.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ provider.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ provider.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ provider.email }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {{ form_start(delete_form) }}
+                <input class="btn btn-sm btn-danger" type="submit" value="Supprimer">
+                {{ form_end(delete_form) }}
+            </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('provider_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('provider_edit', { 'id': provider.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </div>
+    </div>
 {% endblock %}
+

@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
-
+{% block navigate %}
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Client</a>
+            </li>
+            <li>
+                <a href="#">Liste</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
 {% block body %}
     <h1>Clients list</h1>
 

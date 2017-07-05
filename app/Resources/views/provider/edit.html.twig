@@ -1,21 +1,24 @@
 {% extends 'base.html.twig' %}
-
+{% block navigate %}
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Fournisseur</a>
+            </li>
+            <li>
+                <a href="#">modification</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
 {% block body %}
-    <h1>Provider edit</h1>
-
+    <h1>Modification d'un fournisseur</h1>
+    <a class="btn btn-sm btn-default" href="{{ path('provider_index') }}"><i class="glyphicon glyphicon-list"></i></a>
+    <br>
+    <br>
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    <br>
+        <input class="btn btn-sm btn-primary" type="submit" value="Modifier" />
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('provider_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}
