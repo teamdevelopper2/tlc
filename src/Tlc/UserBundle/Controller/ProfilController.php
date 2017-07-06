@@ -7,6 +7,4 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ProfilController extends Controller
 {
 
-
-
 }

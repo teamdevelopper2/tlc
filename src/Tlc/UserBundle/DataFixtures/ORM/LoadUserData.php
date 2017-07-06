@@ -4,12 +4,13 @@ namespace Tlc\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tlc\UserBundle\Entity\User;
 
-class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
+class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface
 {
    /**
     * @var ContainerInterface
@@ -35,28 +36,21 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
    {
       $encoder = $this->container->get('security.password_encoder');
 
-      $user1 = new User();
-      $user1->setUsername('bobo');
-      $user1->setEmail('bobo@gmail.com');
-      $user1->setPassword($encoder->encodePassword($user1, 'bdiallo'));
-      $user1->setEnabled(true);
-      $user1->addRole($this->getReference('role_user'));
-      $this->addReference('bobo', $user1);
-      $manager->persist($user1);
-
-      $user2 = new User();
-      $user2->setUsername('boura');
-      $user2->setEmail('boura@gmail.com');
-      $user2->setPassword($encoder->encodePassword($user2, 'boura'));
-      $user2->setEnabled(true);
-      $user2->addRole($this->getReference('role_admin'));
-      $this->addReference('boura', $user2);
-      $manager->persist($user2);
-
+      $user = new User();
+      $user->setUsername('bobo');
+      $user->setEmail('bobo@gmail.com');
+      $user->setPassword($encoder->encodePassword($user, 'bdiallo'));
+      $user->setEnabled(true);
+      $user->setRoles([
+         $this->getReference('role_admin'),
+         $this->getReference('role_fournisseur')
+      ]);
+      $this->addReference('bobo', $user);
+      $manager->persist($user);
       $manager->flush();
    }
 
-   public function getOder(){
+   public function getOrder(){
       return 2;
    }
 }

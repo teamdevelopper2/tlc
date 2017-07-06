@@ -2,7 +2,6 @@
 
 namespace Tlc\UserBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
@@ -28,14 +27,8 @@ class Profil implements RoleInterface
      *
      * @ORM\Column(name="role", type="string", length=255, unique=true)
      */
-    protected $role;
+    private $role;
 
-   /**
-    * @var User[]
-    *
-    * @ORM\ManyToMany(targetEntity="Tlc\UserBundle\Entity\User")
-    */
-    private $users;
 
    /**
     * Profil constructor.
@@ -43,8 +36,7 @@ class Profil implements RoleInterface
     */
    function __construct($role)
    {
-       $this->role = $role;
-       $this->users = new ArrayCollection();
+       $this->role = strtoupper($role);
    }
 
 
@@ -62,7 +54,7 @@ class Profil implements RoleInterface
     */
    public function setRole($role)
    {
-      $this->role = $role;
+      $this->role = strtoupper($role);
 
       return $this;
    }
@@ -75,37 +67,9 @@ class Profil implements RoleInterface
         return $this->role;
     }
 
-    /**
-     * Add user
-     *
-     * @param \Tlc\UserBundle\Entity\User $user
-     *
-     * @return Profil
-     */
-    public function addUser(\Tlc\UserBundle\Entity\User $user)
+    function __toString()
     {
-        $this->users[] = $user;
-
-        return $this;
+       return $this->role;
     }
 
-    /**
-     * Remove user
-     *
-     * @param \Tlc\UserBundle\Entity\User $user
-     */
-    public function removeUser(\Tlc\UserBundle\Entity\User $user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
 }

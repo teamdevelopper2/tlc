@@ -26,7 +26,7 @@ class User extends BaseUser
    /**
     * @var Profil[]
     *
-    * @ORM\ManyToMany(targetEntity="Tlc\UserBundle\Entity\Profil")
+    * @ORM\ManyToMany(targetEntity="Tlc\UserBundle\Entity\Profil", cascade={"persist"})
     */
     protected $profils;
 
@@ -36,6 +36,7 @@ class User extends BaseUser
        parent::__construct();
        $this->profils = new ArrayCollection();
     }
+
 
    /**
      * Get id
@@ -47,46 +48,87 @@ class User extends BaseUser
       return $this->id;
    }
 
-    /**
-     * Get all roles + ROLE_DEFAULT of the current user
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRoles()
-    {
-        return array_merge($this->profils->toArray(), [new Profil(parent::ROLE_DEFAULT)]);
-    }
+   /**
+    * Get all roles + ROLE_DEFAULT of the current user
+    *
+    * @return \Doctrine\Common\Collections\Collection
+    */
+   public function getRoles()
+   {
+      return array_unique(array_merge($this->profils->toArray(), [new Profil(parent::ROLE_DEFAULT)]));
+   }
 
    /**
-    * @param string $role
-    * @return bool
+    * Pass a string, get the desired Profil object or null.
+    *
+    * @param $roleName
+    * @return null|Profil
+    * @internal param string $role
     */
-   public function hasRole($role)
-    {
-       if($this->getRole($role))
-          return true;
-       return false;
-    }
+   public function getRole($roleName)
+   {
+      foreach ($this->getRoles() as $profil)
+      {
+         if($roleName == $profil->getRole())
+         {
+            return $profil;
+         }
+      }
+      return null;
+   }
+
+   /**
+    * @param string $roleName
+    * @return bool
+    * @internal param string $role
+    */
+   public function hasRole($roleName)
+   {
+      if($this->getRole($roleName))
+         return true;
+      return false;
+   }
 
    /**
     * Add profil
     *
-    * @param Profil $role
+    * @param Profil $profil
     * @return User
     * @throws \Exception
     * @internal param Profil $profil
     */
-   public function addRole($role)
+   public function addRole($profil)
    {
-      if(!$role instanceof Profil)
+      if(!$profil instanceof Profil)
       {
          throw new \Exception("addRole takes a Profil object as the parameter");
       }
-      if($this->hasRole($role->getRole()))
+      if($this->hasRole($profil->getRole()))
       {
-         $this->profils->add($role);
+         return $this;
       }
+      $this->profils->add($profil);
+
+      return $this;
    }
+
+   /**
+    * Pass an ARRAY of Role objects and will clear the collection and re-set it with new Roles.
+    * Type hinted array due to interface.
+    * @param array $profils
+    * @return mixed
+    * @internal param array $roles Of Role objects.
+    */
+   public function setRoles(array $profils)
+   {
+      $this->profils->clear();
+      foreach ($profils as $profil)
+      {
+         $this->addRole($profil);
+      }
+      return $this;
+   }
+
 
    /**
     * @param string $role
@@ -98,26 +140,9 @@ class User extends BaseUser
       if ($profil) {
          $this->profils->removeElement($profil);
       }
+      return $this;
    }
 
-
-   /**
-    * Pass a string, get the desired Role object or null.
-    *
-    * @param string $role
-    * @return Profil|null
-    */
-   public function getRole($role)
-   {
-      foreach ($this->getRoles() as $profil)
-      {
-         if ($role == $profil->getRole())
-         {
-            return $profil;
-         }
-      }
-      return null;
-   }
 
    /**
     * Returns the true ArrayCollection of Roles.
@@ -127,13 +152,38 @@ class User extends BaseUser
       return $this->profils;
    }
 
-   /**
-    * Directly set the ArrayCollection of Roles. Type hinted as Collection which is the parent of (Array|Persistent)Collection.
-    * @param Collection $collection
-    */
-   public function setRolesCollection(Collection $collection)
-   {
-      $this->profils = $collection;
-   }
 
+    /**
+     * Add profil
+     *
+     * @param \Tlc\UserBundle\Entity\Profil $profil
+     *
+     * @return User
+     */
+    public function addProfil(\Tlc\UserBundle\Entity\Profil $profil)
+    {
+        $this->profils[] = $profil;
+
+        return $this;
+    }
+
+    /**
+     * Remove profil
+     *
+     * @param \Tlc\UserBundle\Entity\Profil $profil
+     */
+    public function removeProfil(\Tlc\UserBundle\Entity\Profil $profil)
+    {
+        $this->profils->removeElement($profil);
+    }
+
+    /**
+     * Get profils
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProfils()
+    {
+        return $this->profils;
+    }
 }

@@ -1,7 +1,7 @@
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: UserBundle\Entity\User
+    user_class: Tlc\UserBundle\Entity\User
     from_email:
         address: teamdevelopper@gmail.com
         sender_name: teamdevelopper
