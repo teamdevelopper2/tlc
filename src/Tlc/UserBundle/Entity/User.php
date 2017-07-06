@@ -48,36 +48,92 @@ class User extends BaseUser
    }
 
     /**
-     * Add profil
-     *
-     * @param \Tlc\UserBundle\Entity\Profil $profil
-     *
-     * @return User
-     */
-    public function addProfil(\Tlc\UserBundle\Entity\Profil $profil)
-    {
-        $this->profils[] = $profil;
-
-        return $this;
-    }
-
-    /**
-     * Remove profil
-     *
-     * @param \Tlc\UserBundle\Entity\Profil $profil
-     */
-    public function removeProfil(\Tlc\UserBundle\Entity\Profil $profil)
-    {
-        $this->profils->removeElement($profil);
-    }
-
-    /**
-     * Get profils
+     * Get all roles + ROLE_DEFAULT of the current user
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProfils()
+    public function getRoles()
     {
-        return $this->profils;
+        return array_merge($this->profils->toArray(), [new Profil(parent::ROLE_DEFAULT)]);
     }
+
+   /**
+    * @param string $role
+    * @return bool
+    */
+   public function hasRole($role)
+    {
+       if($this->getRole($role))
+          return true;
+       return false;
+    }
+
+   /**
+    * Add profil
+    *
+    * @param Profil $role
+    * @return User
+    * @throws \Exception
+    * @internal param Profil $profil
+    */
+   public function addRole($role)
+   {
+      if(!$role instanceof Profil)
+      {
+         throw new \Exception("addRole takes a Profil object as the parameter");
+      }
+      if($this->hasRole($role->getRole()))
+      {
+         $this->profils->add($role);
+      }
+   }
+
+   /**
+    * @param string $role
+    * @return $this|\FOS\UserBundle\Model\UserInterface|void
+    */
+   public function removeRole($role)
+   {
+      $profil = $this->getRole($role);
+      if ($profil) {
+         $this->profils->removeElement($profil);
+      }
+   }
+
+
+   /**
+    * Pass a string, get the desired Role object or null.
+    *
+    * @param string $role
+    * @return Profil|null
+    */
+   public function getRole($role)
+   {
+      foreach ($this->getRoles() as $profil)
+      {
+         if ($role == $profil->getRole())
+         {
+            return $profil;
+         }
+      }
+      return null;
+   }
+
+   /**
+    * Returns the true ArrayCollection of Roles.
+    */
+   public function getRolesCollection()
+   {
+      return $this->profils;
+   }
+
+   /**
+    * Directly set the ArrayCollection of Roles. Type hinted as Collection which is the parent of (Array|Persistent)Collection.
+    * @param Collection $collection
+    */
+   public function setRolesCollection(Collection $collection)
+   {
+      $this->profils = $collection;
+   }
+
 }

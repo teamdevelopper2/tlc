@@ -57,7 +57,7 @@ class Profil implements RoleInterface
    }
 
    /**
-    * @param $role
+    * @param string $role
     * @return $this
     */
    public function setRole($role)
