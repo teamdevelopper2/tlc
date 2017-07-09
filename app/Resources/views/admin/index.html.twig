@@ -1,0 +1,47 @@
+{% extends 'baseAjax.html.twig' %}
+{% block title %}
+    <h2><i class="glyphicon glyphicon-user"></i> Administration</h2>
+{% endblock %}
+
+{% block body %}
+    <div class="box-content">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#users" onclick="_get('user_list', 'users')">Utilisateurs</a></li>
+            <li><a href="#custom">Clients</a></li>
+            <li><a href="#messages">Fournisseurs</a></li>
+        </ul>
+
+        <div id="myTabContent" class="tab-content">
+
+            {# Loding image #}
+            <div id="min-loding" class="col-lg-10 col-sm-10" hidden="hidden">
+                <img src="{{ asset('img/loding.gif') }}" alt="loding">
+            </div>
+
+            <div class="tab-pane active" id="users" style="padding-top: 10px;">
+                <script>_get('user_list', 'users')</script>
+            </div>
+            <div class="tab-pane" id="custom">
+                <h3>Custom
+                    <small>small text</small>
+                </h3>
+                <p>Sample paragraph.</p>
+
+                <p>Your custom text.</p>
+            </div>
+            <div class="tab-pane" id="messages">
+                <h3>Messages
+                    <small>small text</small>
+                </h3>
+                <p>Sample paragraph.</p>
+
+                <p>Your custom text.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}
+

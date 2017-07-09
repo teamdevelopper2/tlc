@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                {% block title %}{% endblock %}
+            </div>
+            <div class="box-content">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Javascript #}
+<script>
+  //tabs
+  $('#myTab a:first').tab('show');
+  $('#myTab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  });
+</script>
+
+{% block javascript %}{% endblock %}

@@ -19,7 +19,7 @@ security:
                 default_target_path: /
             logout:
                 path: /logout
-                target: /login
+                target: /
             anonymous:    true
 
     access_control:

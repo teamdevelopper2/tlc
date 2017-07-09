@@ -1,24 +1,95 @@
-<h1>Liste des utilisateur</h1>
-
-<table>
+{# button add user#}
+<button class="btn btn-default" id="tl_addUser"  onclick="showUserFrom()"  style="margin-bottom: 5px;">
+    <i class="glyphicon glyphicon-plus-sign"></i>Ajouter un utilisateur
+</button>
+{# Liste des users #}
+<table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
     <thead>
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Roles</th>
-        </tr>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Roles</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
     {% for user in users %}
-        <tr>{{ user.username }}</tr>
-        <tr>{{ user.email }}</tr>
-        <tr>{{ user.enabled }}</tr>
         <tr>
-            {% for profil in user.roles %}
-                {{ profil.role }} |
-            {% endfor %}
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.enabled }}</td>
+            <td>
+                <select>
+                    {% for profil in user.roles %}
+                        <option>{{ profil.role }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td class="center">
+                <a class="btn btn-success" href="#">
+                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                    View
+                </a>
+                <a class="btn btn-info" href="#">
+                    <i class="glyphicon glyphicon-edit icon-white"></i>
+                    Edit
+                </a>
+                <a class="btn btn-danger" href="#">
+                    <i class="glyphicon glyphicon-trash icon-white"></i>
+                    Delete
+                </a>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+
+{# Modal #}
+<!-- Modal -->
+<div class="modal fade" id="frmUserModal" tabindex="-1" role="dialog" type_operationaria-labelledby="frmUserModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-edit"></i> Ajouter un utilisateur</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn btn-close btn-round btn-default" data-dismiss="modal" aria-hidden="true">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="box-inner">
+                        <div class="box-content" id="contentModalUser">
+                            {#<form role="form">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">File input</label>
+                                    <input type="file" id="exampleInputFile">
+
+                                    <p class="help-block">Example block-level help text here.</p>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Check me out
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
