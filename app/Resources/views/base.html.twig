@@ -136,6 +136,28 @@
                 </div>
                 <!--/span-->
                 <!-- left menu ends -->
+                        </div>
+                        <ul class="nav nav-pills nav-stacked main-menu">
+                            <li class="nav-header">Menu</li>
+                            <li><a class="ajax-link" href="/"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
+                            </li>
+                            <li><a class="ajax-link" href="{{ path('category_index') }}"><i class="glyphicon glyphicon-th"></i><span> Catégorie</span></a>
+                            </li>
+                            <li><a class="ajax-link" href="{{ path('product_index') }}"><i
+                                            class="glyphicon glyphicon-cog"></i><span> Produit</span></a></li>
+
+                            <li><a class="ajax-link" href="{{ path('provider_index') }}"><img src="{{ asset('bundles/inventory/img/fournisseur_16x16.png') }}"><span> Fournisseur</span></a></li>
+                            <li><a href="{{ path('client_index') }}"><i class="glyphicon glyphicon-user"></i><span> Client</span></a>
+                            <li><a href="{{ path('model_index') }}"><i class="glyphicon glyphicon-cog"></i><span> Modèle de Pièces</span></a>
+                            <li><a href="#"><i class="glyphicon glyphicon-shopping-cart"></i><span> Entrée</span></a>
+                            <li><a href="#"><i class="glyphicon glyphicon-trash"></i><span> Sortie</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--/span-->
+            <!-- left menu ends -->
 
                 {#<noscript>#}
                     {#<div class="alert alert-block col-md-12">#}

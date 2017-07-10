@@ -3,7 +3,7 @@
     <div >
         <ul class="breadcrumb">
             <li>
-                <a href="#">Client</a>
+                <a href="#">Modele</a>
             </li>
             <li>
                 <a href="#">détail</a>
@@ -14,39 +14,28 @@
 {% block body %}
 <div class="row">
     <div class="box col-md-12">
-        <a class="btn btn-default" href="{{ path('client_index') }}"><i class="glyphicon glyphicon-list"></i></a><br>
+        <a class="btn btn-default" href="{{ path('model_index') }}"><i class="glyphicon glyphicon-list"></i></a><br>
         <br>
         <div class="box-inner">
             <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-th"></i> Détail d'un client</h2>
+                <h2><i class="glyphicon glyphicon-th"></i> Détail d'un Modèle de prièces</h2>
             </div>
             <div class="box-content">
                 <table class="table">
                     <tbody>
                     <tr>
                         <th>Id</th>
-                        <td>{{ client.id }}</td>
+                        <td>{{ model.id }}</td>
                     </tr>
                     <tr>
-                        <th>Fisrtname</th>
-                        <td>{{ client.fisrtname }}</td>
+                        <th>Name</th>
+                        <td>{{ model.name }}</td>
                     </tr>
                     <tr>
-                        <th>Lastname</th>
-                        <td>{{ client.lastname }}</td>
+                        <th>Stock</th>
+                        <td>{{ model.stock }}</td>
                     </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{ client.email }}</td>
-                    </tr>
-                    <tr>
-                        <th>Phone</th>
-                        <td>{{ client.phone }}</td>
-                    </tr>
-                    <tr>
-                        <th>Address</th>
-                        <td>{{ client.address }}</td>
-                    </tr>
+
                     </tbody>
                 </table>
                 {{ form_start(delete_form) }}
@@ -56,5 +45,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

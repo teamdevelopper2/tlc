@@ -10,4 +10,14 @@ namespace Tlc\InventoryBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function UpdateAmountProduit(array $total) {
+        foreach ($total as $tot) {
+            $this->setAmount($tot->stock, $tot->id);
+        }
+    }
+
+    private function setAmount($stock, $id)
+    {
+
+    }
 }

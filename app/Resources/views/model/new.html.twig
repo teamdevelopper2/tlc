@@ -3,7 +3,7 @@
     <div>
         <ul class="breadcrumb">
             <li>
-                <a href="#">Client</a>
+                <a href="#">Modele</a>
             </li>
             <li>
                 <a href="#">Creation</a>
@@ -12,12 +12,11 @@
     </div>
 {% endblock %}
 {% block body %}
-    <h1>Ajout d'un client</h1>
-    <a class="btn btn-sm btn-info" href="{{ path('client_index') }}"><i class="glyphicon glyphicon-list"></i></a>
-    <br>
-    <br>
+    <h1 class="page-header">Ajouter un modèle de pièces</h1>
+    <a class="btn btn-sm btn-info" href="{{ path('model_index') }}"><i class="glyphicon glyphicon-list"></i></a>
+    <br><br>
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input class="btn btn-sm btn-primary" type="submit" value="Ajouter" />
+        <input class="btn btn-primary btn-sm" type="submit" value="Ajouter" />
     {{ form_end(form) }}
 {% endblock %}

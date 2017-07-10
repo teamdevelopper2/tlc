@@ -3,12 +3,16 @@
 namespace Tlc\InventoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use TeamDeveloppe\UploadBundle\Annotation\Uploadable;
+use TeamDeveloppe\UploadBundle\Annotation\UploadableField;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="Tlc\InventoryBundle\Repository\ProductRepository")
+ * @Uploadable()
  */
 class Product
 {
@@ -31,13 +35,6 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="mark", type="string", length=255)
-     */
-    private $mark;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="designation", type="string", length=255)
      */
     private $designation;
@@ -52,10 +49,26 @@ class Product
     /**
      * @var int
      *
-     * @ORM\Column(name="amount", type="integer")
+     * @ORM\Column(name="amount", type="integer", nullable=true)
      */
     private $amount;
 
+    /**
+     * @var string
+     * @ORM\Column(name="filename", type="string", length=255)
+     */
+    private $filename;
+    /**
+     * @UploadableField(filename="filename", path="uploads")
+     * @Assert\Image(maxWidth="2000", maxHeight = "2000")
+     */
+    private $file;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
    /**
     * @var Category
     *
@@ -70,6 +83,10 @@ class Product
     */
     private $provider;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Tlc\InventoryBundle\Entity\Model" , mappedBy="product")
+     */
+    private $models;
    /**
     * @var Invoice[]
     *
@@ -295,5 +312,69 @@ class Product
     public function getInvoces()
     {
         return $this->invoces;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param string $filename
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param File $file|null
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModels()
+    {
+        return $this->models;
+    }
+
+    /**
+     * @param mixed $models
+     */
+    public function setModels($models)
+    {
+        $this->models = $models;
     }
 }

@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Tlc\InventoryBundle\InventoryBundle(),
             new Tlc\UserBundle\UserBundle(),
             new \FOS\UserBundle\FOSUserBundle(),
+            new TeamDeveloppe\UploadBundle\UploadBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         ];
 

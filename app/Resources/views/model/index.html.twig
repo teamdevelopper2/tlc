@@ -3,7 +3,7 @@
     <div>
         <ul class="breadcrumb">
             <li>
-                <a href="#">Client</a>
+                <a href="#">Modele</a>
             </li>
             <li>
                 <a href="#">Liste</a>
@@ -12,12 +12,12 @@
     </div>
 {% endblock %}
 {% block body %}
-    <a class="btn btn-success btn-sm" href="{{ path('client_new') }}"><i class="glyphicon glyphicon-plus"></i></a>
+    <a class="btn btn-success btn-sm" href="{{ path('model_new') }}"><i class="glyphicon glyphicon-plus"></i></a>
     <div class="row">
     <div class="box col-md-12">
         <div class="box-inner">
             <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-th-list"></i> Liste des Clients</h2>
+                <h2><i class="glyphicon glyphicon-th-list"></i> Liste des modèles de produits</h2>
 
                 <div class="box-icon">
                     <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
@@ -31,28 +31,24 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Fisrtname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Address</th>
+                        <th>Name</th>
+                        <th>Stock</th>
+                        <th>Produit</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for client in clients %}
+                    {% for model in models %}
                         <tr>
-                            <td><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.id }}</a></td>
-                            <td>{{ client.fisrtname }}</td>
-                            <td>{{ client.lastname }}</td>
-                            <td>{{ client.email }}</td>
-                            <td>{{ client.phone }}</td>
-                            <td>{{ client.address }}</td>
+                            <td><a href="{{ path('model_show', { 'id': model.id }) }}">{{ model.id }}</a></td>
+                            <td>{{ model.name }}</td>
+                            <td>{{ model.stock }}</td>
+                            <td>{{ model.product.designation }}</td>
                             <td class="center">
-                                <a class="btn btn-success" href="{{ path('client_show', { 'id': client.id }) }}">
+                                <a class="btn btn-success" href="{{ path('model_show', { 'id': model.id }) }}">
                                     <i class="glyphicon glyphicon-zoom-in icon-white"></i>
                                 </a>
-                                <a class="btn btn-info" href="{{ path('client_edit', { 'id': client.id }) }}">
+                                <a class="btn btn-info" href="{{ path('model_edit', { 'id': model.id }) }}">
                                     <i class="glyphicon glyphicon-edit icon-white"></i>
                                 </a>
                                 <a class="btn btn-danger" href="#">

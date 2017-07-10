@@ -2,7 +2,10 @@
 
 namespace Tlc\InventoryBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +16,18 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('reference')->add('mark')->add('designation')->add('price')->add('amount')->add('category')->add('provider')->add('invoces');
+        $builder->add('reference')
+            ->add('designation')
+            ->add('price')
+            ->add('category', EntityType::class, array(
+                'class' => 'Tlc\InventoryBundle\Entity\Category',
+                'choice_label' => 'name'
+            ))
+            ->add('provider', EntityType::class, array(
+                'class' => 'Tlc\InventoryBundle\Entity\Provider',
+                'choice_label' => 'name'
+            ))
+            ->add('file', FileType::class, ['required' => false]);
     }
     
     /**
