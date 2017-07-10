@@ -62,7 +62,7 @@ class UploadHandler
         if (empty($filename)){
             return null;
         }else {
-            return new File($annotation->getPath(). DIRECTORY_SEPARATOR . $filename,false);
+            return new File($annotation->getPath(). DIRECTORY_SEPARATOR . $filename, false);
         }
     }
 

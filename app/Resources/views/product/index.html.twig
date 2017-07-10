@@ -49,7 +49,7 @@
                                 <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
                                 <td>{{ product.reference }}</td>
                                 <td>{{ product.designation }}</td>
-                                <td>{{ product.price }}</td>
+                                <td>{{ product.price }} <i class="glyphicon glyphicon-euro"></i></td>
                                 <td>{{ product.amount }}</td>
                                 <td>{% if product.category %}{{ product.category.name }}{% endif %}</td>
                                 <td>{% if product.provider %}{{ product.provider.name }}{% endif %}</td>
