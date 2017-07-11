@@ -14,13 +14,16 @@
         <div id="myTabContent" class="tab-content">
 
             {# Loding image #}
-            <div id="min-loding" class="col-lg-10 col-sm-10" hidden="hidden">
+            {#<div id="min-loding" class="col-lg-10 col-sm-10" hidden="hidden">
                 <img src="{{ asset('img/loding.gif') }}" alt="loding">
-            </div>
+            </div>#}
 
+            {# Content users #}
             <div class="tab-pane active" id="users" style="padding-top: 10px;">
                 <script>_get('user_list', 'users')</script>
             </div>
+
+            {# Content Custom #}
             <div class="tab-pane" id="custom">
                 <h3>Custom
                     <small>small text</small>
@@ -29,6 +32,8 @@
 
                 <p>Your custom text.</p>
             </div>
+
+            {# content Messages #}
             <div class="tab-pane" id="messages">
                 <h3>Messages
                     <small>small text</small>

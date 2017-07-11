@@ -52,9 +52,14 @@ function _showClass(s) {
   jQuery(_setSelectorClass(s)).show();
 }
 
-/** Show un element id **/
+/** Show un modal **/
 function _showModal(s) {
   jQuery(_setSelectorId(s)).modal("show");
+}
+
+/** Hide un modal **/
+function _hideModal(s) {
+  jQuery(_setSelectorId(s)).modal("hide");
 }
 
 /** Modifie la valeur d'un element input **/

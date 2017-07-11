@@ -59,7 +59,6 @@ class UserController extends \FOS\UserBundle\Controller\SecurityController
       $form->handleRequest($request);
 
       if($form->isSubmitted() && $form->isValid()){
-
          $em = $this->get('doctrine.orm.entity_manager');
          $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword());
          $user->setPassword($password);
@@ -67,12 +66,16 @@ class UserController extends \FOS\UserBundle\Controller\SecurityController
          $em->persist($user);
          $em->flush();
       }
+      else if($request->getMethod() == 'POST'){
+            $error = 'Le formulaire est invalide';
+      }
       $view = $this->renderView(':admin:add_user.html.twig', ['form' => $form->createView()]);
       return new JsonResponse([
          'view' => $view,
-         'error' => null
+         'error' => $error,
+         'user' => $user,
       ]);
-      // return $this->render(':admin:add_user.html.twig', ['form' => $form->createView()]);
+      //return $this->render(':admin:add_user.html.twig', ['form' => $form->createView(), 'error' => $form->getErrors()]);
 
    }
 }

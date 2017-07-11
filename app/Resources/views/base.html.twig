@@ -40,7 +40,7 @@
                 <!-- user dropdown starts -->
                 <div class="btn-group pull-right">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> {{ app.user.username }}</span>
                             <span class="caret"></span>
                         </button>
@@ -50,7 +50,7 @@
                             <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                         </ul>
                     {% else %}
-                        <a class="btn btn-default dropdown-toggle" href="{{ path('fos_user_security_login') }}"> Se connecter</a>
+                        <a class="btn btn-sm btn-default dropdown-toggle" href="{{ path('fos_user_security_login') }}"> Se connecter</a>
                     {% endif %}
                 </div>
 
@@ -58,7 +58,7 @@
                 <ul class="collapse navbar-collapse nav navbar-nav top-menu pull-right">
                     <li>
                         <form class="navbar-search pull-left">
-                            <input placeholder="Search" class="search-query form-control col-md-10" name="query"
+                            <input placeholder="Search" class="search-query input-sm form-control col-md-10" name="query"
                                    type="text">
                         </form>
                     </li>
@@ -92,7 +92,7 @@
                                 </li>
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
                                     <li class="accordion">
-                                        <a href="#"><i class="glyphicon glyphicon-cog"></i><span>Admin</span></a>
+                                        <a href="#"><i class="glyphicon glyphicon-cog"></i><span> Admin</span></a>
                                         <ul class="nav nav-pills nav-stacked">
                                             <li><a onclick="getPage('user_index')" href="#">Utilisateur</a></li>
                                             <li><a href="#">Child Menu 2</a></li>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div id="loding" class="col-lg-10 col-sm-10" hidden="hidden">
-                    <img src="{{ asset('img/loding.gif') }}" alt="loding">
+                    <img src="{{ asset('img/minload.gif') }}" alt="loding">
                 </div>
                 <div id="content" class="col-lg-10 col-sm-10">
                     <div class="alert alert-danger" id="flashError" hidden="hidden"></div>

@@ -4,24 +4,19 @@ function getPage(route){
 
 /** Affiche le formulaire d'ajout d'un utilisateur **/
 function showUserFrom() {
-  _get('user_add', 'contentModalUser');
+  _get('user_add', 'contentModalUser', 'minload');
   _showModal('frmUserModal');
 }
 
-/** Ajoute un utilisateur en base **/
+
 function addUser(){
-  var response = _post('user_add');
-  if(response.error == null){
-    _hide('min-lodin');
-    _get('user_list', 'users');
-  }
+  _post('user_add', 'frmUserAdd', 'frmUserModal', 'loadingUser');
 }
 
 
 /** Effectue une req GET ajax et met à jour contentId **/
 function _get(route, contentId, lodingId){
-  if (undefined === lodingId) lodingId = 'min-loding';
-
+  // if (undefined === lodingId) lodingId = 'min-loding';
   if(route){
     _empty(contentId);
     _show(lodingId);
@@ -36,7 +31,7 @@ function _get(route, contentId, lodingId){
           _empty(contentId);
           _setHtmlValue(contentId, response.view);
         }
-        else showErrorResponse(response)
+        else showErrorResponse(response, 'flashError')
       },
       error: function(){
         alert('Veuillez ressayer plus tard');
@@ -47,19 +42,22 @@ function _get(route, contentId, lodingId){
 
 
 /** Effectue une req POST ajax et met à jour contentId **/
-function _post(route, contentId, lodingId, formId){
-  if (undefined === lodingId) lodingId = 'min-loding';
-
+function _post(route, formId, modal, loading){
+  _show(loading);
+  $('.modal-backdrop').attr('id', 'modalClose')
   if(route){
-    _empty(contentId);
-    _show(lodingId);
     $.ajax({
       type: 'POST',
       url: Routing.generate(route),
       data: _serializeForm(formId),
       success: function(response)
       {
-        return response;
+        if(response.error == null){
+          _hide(loading);
+          $('#modalClose').removeClass('modal-backdrop fade in');
+          _get('user_list', 'users');
+        }
+        else showErrorResponse(response, 'flashErrorUsers')
       },
       error: function(){
         alert('Veuillez ressayer plus tard');
@@ -69,7 +67,7 @@ function _post(route, contentId, lodingId, formId){
 }
 
 /** Affiche les erreurs retourné par une requete AJAX **/
-function showErrorResponse(response){
+function showErrorResponse(response, flashId){
   $('#flashError').removeAttr('hidden');
-  _setHtmlValue('flashError', '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + response.error)
+  _setHtmlValue(flashId, '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + response.error)
 }
