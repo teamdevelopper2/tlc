@@ -34,7 +34,7 @@ class UserController extends \FOS\UserBundle\Controller\SecurityController
       $users = $this->getDoctrine()
          ->getManager()
          ->getRepository('UserBundle:User')
-         ->findAll();
+         ->findBy([], ['id' => 'DESC']);
       $view = $this->renderView(':admin:list_user.html.twig', ['users' => $users]);
 
       return new JsonResponse([

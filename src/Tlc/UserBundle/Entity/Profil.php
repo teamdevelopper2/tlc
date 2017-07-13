@@ -29,6 +29,13 @@ class Profil implements RoleInterface
      */
     private $role;
 
+   /**
+    * @var string
+    *
+    * @ORM\Column(name="description", type="string", length=255, nullable=true)
+    */
+    private $description;
+
 
    /**
     * Profil constructor.
@@ -66,6 +73,24 @@ class Profil implements RoleInterface
     {
         return $this->role;
     }
+
+   /**
+    * @return string
+    */
+   public function getDescription()
+   {
+      return $this->description;
+   }
+
+   /**
+    * @param string $description
+    */
+   public function setDescription($description)
+   {
+      $this->description = $description;
+   }
+
+
 
     function __toString()
     {

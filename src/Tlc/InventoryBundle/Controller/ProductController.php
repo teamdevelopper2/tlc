@@ -5,8 +5,9 @@ namespace Tlc\InventoryBundle\Controller;
 use Tlc\InventoryBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Tlc\InventoryBundle\Form\ProductType;
 /**
  * Product controller.
  *
@@ -31,16 +32,18 @@ class ProductController extends Controller
         ));
     }
 
-    /**
-     * Creates a new product entity.
-     *
-     * @Route("/new", name="product_new")
-     * @Method({"GET", "POST"})
-     */
+   /**
+    * Creates a new product entity.
+    *
+    * @Route("/new", name="product_new")
+    * @Method({"GET", "POST"})
+    * @param Request $request
+    * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+    */
     public function newAction(Request $request)
     {
         $product = new Product();
-        $form = $this->createForm('Tlc\InventoryBundle\Form\ProductType', $product);
+        $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,12 +61,14 @@ class ProductController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a product entity.
-     *
-     * @Route("/{id}", name="product_show")
-     * @Method("GET")
-     */
+   /**
+    * Finds and displays a product entity.
+    *
+    * @Route("/{id}", name="product_show")
+    * @Method("GET")
+    * @param Product $product
+    * @return \Symfony\Component\HttpFoundation\Response
+    */
     public function showAction(Product $product)
     {
         $deleteForm = $this->createDeleteForm($product);
@@ -74,12 +79,15 @@ class ProductController extends Controller
         ));
     }
 
-    /**
-     * Displays a form to edit an existing product entity.
-     *
-     * @Route("/{id}/edit", name="product_edit")
-     * @Method({"GET", "POST"})
-     */
+   /**
+    * Displays a form to edit an existing product entity.
+    *
+    * @Route("/{id}/edit", name="product_edit")
+    * @Method({"GET", "POST"})
+    * @param Request $request
+    * @param Product $product
+    * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+    */
     public function editAction(Request $request, Product $product)
     {
         $deleteForm = $this->createDeleteForm($product);
@@ -100,12 +108,15 @@ class ProductController extends Controller
         ));
     }
 
-    /**
-     * Deletes a product entity.
-     *
-     * @Route("/{id}", name="product_delete")
-     * @Method("DELETE")
-     */
+   /**
+    * Deletes a product entity.
+    *
+    * @Route("/{id}", name="product_delete")
+    * @Method("DELETE")
+    * @param Request $request
+    * @param Product $product
+    * @return \Symfony\Component\HttpFoundation\RedirectResponse
+    */
     public function deleteAction(Request $request, Product $product)
     {
         $form = $this->createDeleteForm($product);

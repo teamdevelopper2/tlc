@@ -7,7 +7,7 @@
     <div class="box-content">
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#users" onclick="_get('user_list', 'users')">Utilisateurs</a></li>
-            <li><a href="#custom">Clients</a></li>
+            <li><a href="#profil" onclick="_get('profil_list', 'profil')">Profil</a></li>
             <li><a href="#messages">Fournisseurs</a></li>
         </ul>
 
@@ -24,13 +24,8 @@
             </div>
 
             {# Content Custom #}
-            <div class="tab-pane" id="custom">
-                <h3>Custom
-                    <small>small text</small>
-                </h3>
-                <p>Sample paragraph.</p>
-
-                <p>Your custom text.</p>
+            <div class="tab-pane" id="profil" style="padding-top: 10px;">
+                <script>_get('profil_list', 'profil')</script>
             </div>
 
             {# content Messages #}
