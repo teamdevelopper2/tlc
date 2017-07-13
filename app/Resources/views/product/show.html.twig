@@ -45,11 +45,11 @@
                     </tr>
                     <tr>
                         <th>Catégorie</th>
-                        <td>{{ product.category.name }}</td>
+                        <td>{% if product.category %}{{ product.category.name }}{% endif %}</td>
                     </tr>
                     <tr>
                         <th>Fournisseur</th>
-                        <td>{{ product.provider.name }}</td>
+                        <td>{% if product.provider %}{{ product.provider.name }}{% endif %}</td>
                     </tr>
 
                     <tr>

@@ -2,6 +2,7 @@
 
 namespace Tlc\InventoryBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Tlc\InventoryBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -18,7 +19,7 @@ class ProductController extends Controller
     /**
      * Lists all product entities.
      *
-     * @Route("/", name="product_index")
+     * @Route("/", name="product_index", options={"expose"= true})
      * @Method("GET")
      */
     public function indexAction()
@@ -32,14 +33,12 @@ class ProductController extends Controller
         ));
     }
 
-   /**
-    * Creates a new product entity.
-    *
-    * @Route("/new", name="product_new")
-    * @Method({"GET", "POST"})
-    * @param Request $request
-    * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-    */
+    /**
+     * Creates a new product entity.
+     *
+     * @Route("/new", name="product_new")
+     * @Method({"GET", "POST"})
+     */
     public function newAction(Request $request)
     {
         $product = new Product();
@@ -79,44 +78,69 @@ class ProductController extends Controller
         ));
     }
 
-   /**
-    * Displays a form to edit an existing product entity.
-    *
-    * @Route("/{id}/edit", name="product_edit")
-    * @Method({"GET", "POST"})
-    * @param Request $request
-    * @param Product $product
-    * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-    */
-    public function editAction(Request $request, Product $product)
+    /**
+     * Displays a form to edit an existing product entity.
+     *
+     * @Route(name="product_edit", path="/{id}/edit", options={"expose" = true})
+     * @return JsonResponse
+     */
+    public function editAction(Request $request, $id)
     {
-        $deleteForm = $this->createDeleteForm($product);
-        $editForm = $this->createForm('Tlc\InventoryBundle\Form\ProductType', $product);
-        $editForm->handleRequest($request);
+//        $deleteForm = $this->createDeleteForm($product);
+        $error = null;
+        try {
+                $product = $this->getDoctrine()
+                                ->getManager()
+                                ->getRepository('InventoryBundle:Product')
+                                ->find($id);
+                $form = $this->createForm('Tlc\InventoryBundle\Form\ProductType', $product);
+                $form->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $product->setUpdatedAt(new \DateTime());
-            $this->getDoctrine()->getManager()->flush();
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $product->setUpdatedAt(new \DateTime());
+                    $this->getDoctrine()
+                        ->getManager()
+                        ->flush();
 
-            return $this->redirectToRoute('product_edit', array('id' => $product->getId()));
+//                    return $this->redirectToRoute('product_index');
+                    return new JsonResponse([
+                        'ulrToRedirect' => 'product_index',
+                        'error' => null
+                    ]);
+                }
+                elseif ($request->getMethod() == "POST") {
+                    $error = "Formulaire non valide !!!";
+                    return new JsonResponse([
+                        'error' => $error,
+                    ]);
+                }
+                $view = $this->renderView(':product:edit.html.twig', ['form' => $form->createView()]);
+        }catch (\Exception $exception) {
+            var_dump($exception->getMessage() . 'et fichier' . $exception->getFile());
+            $error = $exception->getMessage();
         }
 
-        return $this->render('product/edit.html.twig', array(
-            'product' => $product,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return new JsonResponse([
+            'view' => $view,
+            'error' => $error,
+            'id' => $id
+        ]);
+//        return $this->render('product/edit.html.twig', array(
+//            'product' => $product,
+//            'edit_form' => $editForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
+//        ));
     }
 
-   /**
-    * Deletes a product entity.
-    *
-    * @Route("/{id}", name="product_delete")
-    * @Method("DELETE")
-    * @param Request $request
-    * @param Product $product
-    * @return \Symfony\Component\HttpFoundation\RedirectResponse
-    */
+    /**
+     * Deletes a product entity.
+     *
+     * @Route("/{id}", name="product_delete")
+     * @Method("DELETE")
+     * * @param Request $request
+     * @param Product $product
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteAction(Request $request, Product $product)
     {
         $form = $this->createDeleteForm($product);
