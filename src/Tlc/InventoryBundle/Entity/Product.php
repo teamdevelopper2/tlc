@@ -2,6 +2,7 @@
 
 namespace Tlc\InventoryBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use TeamDeveloppe\UploadBundle\Annotation\Uploadable;
 use TeamDeveloppe\UploadBundle\Annotation\UploadableField;
@@ -16,7 +17,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Product
 {
-    /**
+
+   /**
+    * Constructor
+    */
+   public function __construct()
+   {
+      $this->invoces = new ArrayCollection();
+      $this->orderSaleProducts = new ArrayCollection();
+   }
+
+
+   /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -31,6 +43,13 @@ class Product
      * @ORM\Column(name="reference", type="string", length=255)
      */
     private $reference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mark", type="string", length=255, nullable=true)
+     */
+    private $mark;
 
     /**
      * @var string
@@ -58,6 +77,7 @@ class Product
      * @ORM\Column(name="filename", type="string", length=255)
      */
     private $filename;
+
     /**
      * @UploadableField(filename="filename", path="uploads")
      * @Assert\Image(maxWidth="2000", maxHeight = "2000")
@@ -69,7 +89,8 @@ class Product
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
-   /**
+
+    /**
     * @var Category
     *
     * @ORM\ManyToOne(targetEntity="Tlc\InventoryBundle\Entity\Category")
@@ -87,15 +108,23 @@ class Product
      * @ORM\OneToMany(targetEntity="Tlc\InventoryBundle\Entity\Model" , mappedBy="product")
      */
     private $models;
-   /**
+
+    /**
     * @var Invoice[]
     *
     * @ORM\ManyToMany(targetEntity="Tlc\InventoryBundle\Entity\Invoice")
     */
     private $invoces;
 
+   /**
+    * @var OrderSaleProduct[]
+    *
+    * @ORM\OneToMany(targetEntity="Tlc\InventoryBundle\Entity\OrderSaleProduct", mappedBy="product")
+    */
+   private $orderSaleProducts;
 
-    /**
+
+   /**
      * Get id
      *
      * @return int
@@ -223,13 +252,6 @@ class Product
     public function getAmount()
     {
         return $this->amount;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->invoces = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -376,5 +398,64 @@ class Product
     public function setModels($models)
     {
         $this->models = $models;
+    }
+
+    /**
+     * Add model
+     *
+     * @param \Tlc\InventoryBundle\Entity\Model $model
+     *
+     * @return Product
+     */
+    public function addModel(\Tlc\InventoryBundle\Entity\Model $model)
+    {
+        $this->models[] = $model;
+
+        return $this;
+    }
+
+    /**
+     * Remove model
+     *
+     * @param \Tlc\InventoryBundle\Entity\Model $model
+     */
+    public function removeModel(\Tlc\InventoryBundle\Entity\Model $model)
+    {
+        $this->models->removeElement($model);
+    }
+
+
+    /**
+     * Add orderSaleProduct
+     *
+     * @param \Tlc\InventoryBundle\Entity\OrderSaleProduct $orderSaleProduct
+     *
+     * @return Product
+     */
+    public function addOrderSaleProduct(\Tlc\InventoryBundle\Entity\OrderSaleProduct $orderSaleProduct)
+    {
+        $this->orderSaleProducts[] = $orderSaleProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderSaleProduct
+     *
+     * @param \Tlc\InventoryBundle\Entity\OrderSaleProduct $orderSaleProduct
+     */
+    public function removeOrderSaleProduct(\Tlc\InventoryBundle\Entity\OrderSaleProduct $orderSaleProduct)
+    {
+        $this->orderSaleProducts->removeElement($orderSaleProduct);
+    }
+
+    /**
+     * Get orderSaleProducts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderSaleProducts()
+    {
+        return $this->orderSaleProducts;
     }
 }

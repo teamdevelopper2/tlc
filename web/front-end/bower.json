@@ -24,6 +24,7 @@
     "moment": "^2.18.1",
     "responsive-tables": "*",
     "bootstrap": "^3.3.7",
-    "bootstrap-tour": "^0.11.0"
+    "bootstrap-tour": "^0.11.0",
+    "bootstrap-datepicker": "^1.7.1"
   }
 }

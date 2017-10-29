@@ -22,6 +22,11 @@ inventory_category:
     resource: "@InventoryBundle/Controller/CategoryController.php"
     type:     annotation
 
+inventory_ordersale:
+    resource: "@InventoryBundle/Controller/OrderSaleController.php"
+    prefix: /ordersale
+    type:   annotation
+
 inventory:
     resource: "@InventoryBundle/Resources/config/routing.yml"
     prefix:   /

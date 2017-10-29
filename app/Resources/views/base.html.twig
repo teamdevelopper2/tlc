@@ -22,6 +22,7 @@
         <link href="{{ asset('bundles/inventory/css/jquery.iphone.toggle.css') }}" rel='stylesheet'>
         <link href="{{ asset('bundles/inventory/css/uploadify.css') }}" rel='stylesheet'>
         <link href="{{ asset('bundles/inventory/css/animate.min.css') }}" rel='stylesheet'>
+        <link href="{{ asset('front-end/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css') }}" rel='stylesheet'>
     </head>
     <body>
         <!-- topbar starts -->
@@ -88,7 +89,7 @@
                                 <li><a href="{{ path('client_index') }}"><i class="glyphicon glyphicon-user"></i><span> Client</span></a>
                                 <li><a href="{{ path('model_index') }}"><i class="glyphicon glyphicon-cog"></i><span> Modèle de Pièces</span></a>
                                 <li><a href="#"><i class="glyphicon glyphicon-shopping-cart"></i><span> Entrée</span></a>
-                                <li><a href="#"><i class="glyphicon glyphicon-trash"></i><span> Sortie</span></a>
+                                <li><a href="{{ path('ordersale_index') }}"><i class="glyphicon glyphicon-trash"></i><span> Sortie</span></a>
                                 </li>
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
                                     <li class="accordion">
@@ -118,9 +119,9 @@
 
         </div>
 
+        <script src="{{ asset('js/functions.js') }}"></script>
         {% block javascripts %}{% endblock %}
         {# js #}
-        <script src="{{ asset('js/functions.js') }}"></script>
         <script src="{{ asset('js/ajax.js') }}"></script>
 
         {# Fosjsrouting #}
@@ -131,6 +132,8 @@
         <!-- jQuery -->
         <script src="{{ asset('front-end/bower_components/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('front-end/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+        <script src="{{ asset('front-end/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 
         <!-- library for cookie management -->
         <script src="{{ asset('bundles/inventory/js/jquery.cookie.js') }}"></script>
@@ -162,5 +165,10 @@
         <script src="{{ asset('bundles/inventory/js/jquery.history.js') }}"></script>
         <!-- application script for Charisma demo -->
         <script src="{{ asset('bundles/inventory/js/charisma.js') }}"></script>
+        <script>
+          $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+          });
+        </script>
     </body>
 </html>

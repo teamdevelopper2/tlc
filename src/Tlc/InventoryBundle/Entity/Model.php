@@ -105,4 +105,3 @@ class Model
         $this->stock = $stock;
     }
 }
-

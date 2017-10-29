@@ -1,0 +1,31 @@
+{#{% extends 'baseAjax.html.twig' %}#}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-user"></i> Details Commande</h2>
+                </div>
+                <div class="box-content">
+                    <div class="box-content">
+                        <ul class="nav nav-tabs" id="myTab">
+                            <li class="active"><a href="#ordersale">Produits</a></li>
+                        </ul>
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <input class="btn btn-primary btn-sm" type="submit" value="Ajouter" />
+                        {{ form_end(form) }}
+
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane active" id="ordersale" style="padding-top: 10px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

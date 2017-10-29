@@ -43,7 +43,7 @@ function editProduct() {
 }
 
 /** Effectue une req GET ajax et met à jour contentId **/
-function _get(route,id, contentId, lodingId){
+function _get(route, id, contentId, lodingId){
   // if (undefined === lodingId) lodingId = 'min-loding';
   if(route){
     _empty(contentId);
@@ -70,6 +70,7 @@ function _get(route,id, contentId, lodingId){
     })
   }
 }
+
 /**
  * Permet de récupérer la bonne url à envoyer dans la requête ajax
  * @param route

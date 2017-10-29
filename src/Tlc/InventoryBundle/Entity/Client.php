@@ -2,6 +2,7 @@
 
 namespace Tlc\InventoryBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,7 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Client
 {
-    /**
+
+   public function __construct()
+   {
+      $this->orderSales = new ArrayCollection();
+   }
+
+   /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -55,6 +62,13 @@ class Client
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
+
+    /**
+     * @var OrderSale[]
+     *
+     * @ORM\OneToMany(targetEntity="Tlc\InventoryBundle\Entity\OrderSale", mappedBy="client")
+     */
+    private $orderSales;
 
 
     /**
@@ -185,5 +199,39 @@ class Client
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Add orderSale
+     *
+     * @param \Tlc\InventoryBundle\Entity\OrderSale $orderSale
+     *
+     * @return Client
+     */
+    public function addOrderSale(\Tlc\InventoryBundle\Entity\OrderSale $orderSale)
+    {
+        $this->orderSales[] = $orderSale;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderSale
+     *
+     * @param \Tlc\InventoryBundle\Entity\OrderSale $orderSale
+     */
+    public function removeOrderSale(\Tlc\InventoryBundle\Entity\OrderSale $orderSale)
+    {
+        $this->orderSales->removeElement($orderSale);
+    }
+
+    /**
+     * Get orderSales
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderSales()
+    {
+        return $this->orderSales;
     }
 }

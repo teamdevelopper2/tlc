@@ -12,3 +12,5 @@ var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
 .idea/
+/web/front-end
+!/web/front-end/bower.json
