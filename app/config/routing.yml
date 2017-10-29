@@ -1,3 +1,7 @@
+inventory_order_purchase:
+    resource: "@InventoryBundle/Controller/OrderPurchaseController.php"
+    type:     annotation
+
 inventory_model:
     resource: "@InventoryBundle/Controller/ModelController.php"
     type:     annotation

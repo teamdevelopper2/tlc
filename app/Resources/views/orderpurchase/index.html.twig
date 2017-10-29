@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+{% block navigate %}
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Commande d'âchat</a>
+            </li>
+            <li>
+                <a href="#">Liste</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-th-list"></i> Liste des commandes d'âchats</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                    <thead>
+                    <tr>
+                        <th>Id Facture</th>
+                        <th>Fournisseur</th>
+                        <th>Date commande</th>
+                        <th>Montant</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for orderPurchase in orderPurchases %}
+                        <tr>
+                            <td>{{ orderPurchase.id }}</td>
+                            <td>{% if orderPurchase.provider %}{{ orderPurchase.provider.name }}{% endif %}</td>
+                            <td>{% if orderPurchase.dateOrder %}{{ orderPurchase.dateOrder|date('d/m/Y') }}{% endif %}</td>
+                            <td>montant</td>
+                            <td class="center">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <form action="{{ path('orderpurchase_new') }}" method="post">
+                            <span hidden="hidden">{{ form_errors(form) }}</span>
+                            <td>nouvelle commande</td>
+                            <td>
+                                {{ form_errors(form.provider) }}
+                                {{ form_widget(form.provider, {'attr': {'placeholder': 'ID Fournisseur'} }) }}
+                            </td>
+                            <td>
+                                {{ form_errors(form.dateOrder) }}
+                                {{ form_widget(form.dateOrder) }}
+                            </td>
+                            <td style="border: inherit;"></td>
+                            <td style="border-right: inherit;">
+                                {{ form_widget(form._token) }}
+                                <input type="submit" class="btn btn-sm btn-primary" value="Valider">
+                            </td>
+                        </form>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

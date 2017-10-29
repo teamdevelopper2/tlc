@@ -90,6 +90,8 @@
                                 <li><a href="{{ path('model_index') }}"><i class="glyphicon glyphicon-cog"></i><span> Modèle de Pièces</span></a>
                                 <li><a href="#"><i class="glyphicon glyphicon-shopping-cart"></i><span> Entrée</span></a>
                                 <li><a href="{{ path('ordersale_index') }}"><i class="glyphicon glyphicon-trash"></i><span> Sortie</span></a>
+                                <li><a href="{{ path('orderpurchase_index') }}"><i class="glyphicon glyphicon-shopping-cart"></i><span> Entrée</span></a>
+                                <li><a href="#"><i class="glyphicon glyphicon-trash"></i><span> Sortie</span></a>
                                 </li>
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
                                     <li class="accordion">
