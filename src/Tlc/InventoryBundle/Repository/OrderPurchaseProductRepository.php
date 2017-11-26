@@ -1,6 +1,8 @@
 <?php
 
 namespace Tlc\InventoryBundle\Repository;
+use Tlc\InventoryBundle\Entity\OrderPurchase;
+use Tlc\InventoryBundle\Entity\Product;
 
 /**
  * OrderPurchaseProductRepository
@@ -10,4 +12,17 @@ namespace Tlc\InventoryBundle\Repository;
  */
 class OrderPurchaseProductRepository extends \Doctrine\ORM\EntityRepository
 {
+   /**
+    * @param Product $product
+    * @param OrderPurchase $orderPurchase
+    * @return int
+    */
+   public function findOrderPuchaseProduct(Product $product, OrderPurchase $orderPurchase) {
+      return $this->createQueryBuilder('opp')
+         ->where('opp.product =:prod')
+         ->andWhere('opp.orderpurchase =:ordpurch')
+         ->setParameters(array('prod' => $product, 'ordpurch' => $orderPurchase))
+         ->getQuery()
+         ->getSingleResult();
+   }
 }

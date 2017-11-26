@@ -11,6 +11,16 @@ function showProduitform(id) {
     _get('product_edit',id,'contentModalProduct','loding');
     _showModal('frmProductModal');
 }
+function showPurchaseProduitForm(idProd,idOrd) {
+  _getOrder('edit_orderpurchaseproduct',idProd, idOrd,'contentModelOrdP'+idProd+idOrd);
+  _showModal('myModal' + idProd + idOrd);
+}
+function editOrderPurchaseProduct() {
+  _post('edit_orderpurchaseproduct', 'PostEditOrderPurchProduct', 'myModal', 'loadingProduct', 'flashErrorUsers', function () {
+    window.location.href = Routing.generate('orderpurchase_show');
+    $('#modalClose').removeClass('modal-backdrop fade in');
+  });
+}
 /** Ajoute un utilisateur en base **/
 
 
@@ -41,7 +51,36 @@ function editProduct() {
       window.location.href = Routing.generate('product_index');
     })
 }
-
+function getOrderUrl(route,idProd, idOrd) {
+  return idProd == '' && idOrd == '' ? Routing.generate(route):Routing.generate(route,{idProd:idProd,idOrd:idOrd})
+}
+function _getOrder(route, idProd, idOrd, contentId, lodingId) {
+  if(route){
+   // _empty(contentId);
+    _show(lodingId);
+    var url = getOrderUrl(route,idProd, idOrd);
+    $.ajax({
+      type: 'GET',
+      url: url,
+      success: function(response)
+      {
+        if(response.error == null){
+          console.log(response);
+          // _hide(lodingId);
+          // _empty(contentId);
+          _setHtmlValue(contentId, response.view);
+          // if (_getHtmlValue('PostEditProduct') !== '') {
+          //   $('#idProduit').attr('value', id);
+          // }
+        }
+        else showErrorResponse(response, 'flashError')
+      },
+      error: function(){
+        alert('Veuillez ressayer plus tard');
+      }
+    })
+  }
+}
 /** Effectue une req GET ajax et met à jour contentId **/
 function _get(route, id, contentId, lodingId){
   // if (undefined === lodingId) lodingId = 'min-loding';

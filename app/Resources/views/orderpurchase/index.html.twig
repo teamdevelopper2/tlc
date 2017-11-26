@@ -42,8 +42,11 @@
                             <td>{{ orderPurchase.id }}</td>
                             <td>{% if orderPurchase.provider %}{{ orderPurchase.provider.name }}{% endif %}</td>
                             <td>{% if orderPurchase.dateOrder %}{{ orderPurchase.dateOrder|date('d/m/Y') }}{% endif %}</td>
-                            <td>montant</td>
+                            <td>{{ orderPurchase.totalAmount }}</td>
                             <td class="center">
+                                <a href="{{ path('orderpurchase_show', {id : orderPurchase.id}) }}">
+                                    <button style="background: transparent;color: green;" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-shopping-cart"></i></button>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -57,7 +60,7 @@
                             </td>
                             <td>
                                 {{ form_errors(form.dateOrder) }}
-                                {{ form_widget(form.dateOrder) }}
+                                {{ form_widget(form.dateOrder,  {'attr': {'placeholder': 'Date commande', 'class': 'datepicker'} }) }}
                             </td>
                             <td style="border: inherit;"></td>
                             <td style="border-right: inherit;">

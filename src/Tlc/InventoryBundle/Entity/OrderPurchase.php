@@ -131,4 +131,17 @@ class OrderPurchase
     {
         return $this->orderpurchaseProducts;
     }
+
+   /**
+    * @return float|int
+    */
+   public function getTotalAmount()
+   {
+      $amounts = 0;
+
+      foreach ($this->orderpurchaseProducts as $orderpurchaseProduct) {
+         $amounts += $orderpurchaseProduct->getProduct()->getPrice() * $orderpurchaseProduct->getAmount();
+      }
+      return $amounts;
+   }
 }

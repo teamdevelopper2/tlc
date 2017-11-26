@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-user"></i> Détail de commande d'âchat</h2>
+                </div>
+                <div class="box-content">
+                    <div class="title-details">
+                        <ul style="list-style-type: none;">
+                            <li class="row">
+                                <strong class="col-sm-2">Facture ID:</strong>
+                                <input readonly class="col-sm-2" type="text" value="{{ orderPurchase.id }}">
+                            </li>
+                            <li class="row">
+                                <strong class="col-sm-2">Client:</strong>
+                                <input readonly class="col-sm-2" type="text"
+                                       value="{{ orderPurchase.provider.name ~ ' ' ~ orderPurchase.provider.address }}">
+                            </li>
+                            <li class="row">
+                                <strong class="col-sm-2">Date commande:</strong>
+                                <input readonly class="col-sm-2" type="text"
+                                       value="{{ orderPurchase.dateOrder | date('d/m/Y') }}">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tlc-table">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID Produit</th>
+                                <th>Produit</th>
+                                <th>Quantité</th>
+                                <th>Image</th>
+                                <th>Prix unitaire</th>
+                                <th>Montant</th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in cmdAchat %}
+                                <tr>
+                                    <td class="idProduct">{{ order.product.id }}</td>
+                                    <td>{{ order.product.designation }}</td>
+                                    <td>{{ order.amount }}</td>
+                                    {#<td><img src="{{ asset(order.product.file.path~'/'~order.product.file.filename) }}" width="30"></td>#}
+                                    <td>{% if order.product.file %}<img
+                                            src="{{ asset(order.product.file.path~'/'~order.product.file.filename) }}"
+                                            width="30">{% endif %}</td>
+                                    <td>{{ order.product.price }}</td>
+                                    <td>{{ order.product.price * order.amount }}</td>
+                                    <td><a>
+                                            <button class="btn btn-sm"
+                                                    onclick="showPurchaseProduitForm('{{ order.product.id }}', '{{ order.orderpurchase.id }}')">
+                                                <i class="glyphicon glyphicon-pencil"></i></button>
+                                        </a> | <a>
+                                            <button class="btn btn-sm"><i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </a></td>
+                                </tr>
+                                <!-- Modal -->
+                                <div id="{{'myModal'~order.product.id ~ order.orderpurchase.id }}" class="modal fade"
+                                     role="dialog"
+                                     >
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                                <h4 class="modal-title">Modification de la commande d'âchat</h4>
+                                            </div>
+                                            <div class="modal-body"
+                                                 id="contentModelOrdP{{ order.product.id }}{{ order.orderpurchase.id }}">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Fermer
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <tr>
+                                <form action="{{ path('orderPurchase_purchaseproduct', {'id': orderPurchase.id}) }}"
+                                      method="post">
+                                    <span hidden="hidden">{{ form_errors(form) }}</span>
+                                    <td>Ligne de commande</td>
+                                    <td>
+                                        {{ form_errors(form.product) }}
+                                        {{ form_widget(form.product) }}
+                                    </td>
+                                    <td>
+                                        {{ form_errors(form.amount) }}
+                                        {{ form_widget(form.amount) }}
+                                    </td>
+                                    <td style="border-right: inherit;">
+                                        {{ form_widget(form._token) }}
+                                        <button type="submit" class="btn btn-sm btn-primary">Valider</button>
+                                    </td>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      // Cache tous les produits dejà choisis
+      $('#tlc_inventorybundle_orderpurchaseproduct_product option').each(function () {
+        var option = $(this);
+        $('.idProduct').each(function () {
+          if (option.val() == $(this).text()) {
+            $(option).hide();
+          }
+        });
+      })
+      $('#tlc_inventorybundle_orderpurchaseproduct_product').prepend('<option selected></option>')
+    </script>
+{% endblock %}
