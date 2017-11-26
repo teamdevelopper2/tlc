@@ -82,7 +82,24 @@ class OrderPurchaseController extends Controller
          ->getRepository('InventoryBundle:OrderPurchase')
          ->find($id);
    }
+   /**
+    * @Route("/addProduit/{id}", name="orderPurchase_purchaseproduct")
+    */
+   public function purchaseProduitAction(Request $request, OrderPurchase $orderPurchaser)
+   {
+      $orderPurchaseproduct = new OrderPurchaseProduct();
+      $form = $this->createForm('Tlc\InventoryBundle\Form\OrderPurchaseProductType', $orderPurchaseproduct);
+      $form->handleRequest($request);
 
+      if ($form->isSubmitted() && $form->isValid()) {
+         $em = $this->getDoctrine()->getManager();
+         $orderPurchaseproduct->setOrderpurchase($orderPurchaser);
+         $em->persist($orderPurchaseproduct);
+         $em->flush();
+         return $this->redirectToRoute('orderpurchase_show', ['id' => $orderPurchaseproduct->getOrderpurchase()->getId()]);
+      }
+      return $this->forward('InventoryBundle:OrderPurchase:show', ['orderPurchase' => $orderPurchaser]);
+   }
 
    /**
     * @param Request $request
@@ -96,9 +113,12 @@ class OrderPurchaseController extends Controller
    {
       $product = $this->findProduct($idProd);
       $orderpurchase = $this->findOrderPurchase($idOrd);
-      $orderPurchaseProduct = $this->getDoctrine()
-         ->getRepository('InventoryBundle:OrderPurchaseProduct')
-         ->findOrderPuchaseProduct($product, $orderpurchase);
+      $orderPurchaseProduct = null;
+      if ($product != null && $orderpurchase != null) {
+         $orderPurchaseProduct = $this->getDoctrine()
+            ->getRepository('InventoryBundle:OrderPurchaseProduct')
+            ->findOrderPuchaseProduct($product, $orderpurchase);
+      }
       $editForm = $this->createForm(OrderPurchaseProductType::class, $orderPurchaseProduct);
       $editForm->handleRequest($request);
       $error = null;
@@ -136,24 +156,7 @@ class OrderPurchaseController extends Controller
    }
 
 
-   /**
-    * @Route("/addProduit/{id}", name="orderPurchase_purchaseproduct")
-    */
-   public function purchaseProduitAction(Request $request, OrderPurchase $orderPurchaser)
-   {
-      $orderPurchaseproduct = new OrderPurchaseProduct();
-      $form = $this->createForm('Tlc\InventoryBundle\Form\OrderPurchaseProductType', $orderPurchaseproduct);
-      $form->handleRequest($request);
 
-      if ($form->isSubmitted() && $form->isValid()) {
-         $em = $this->getDoctrine()->getManager();
-         $orderPurchaseproduct->setOrderpurchase($orderPurchaser);
-         $em->persist($orderPurchaseproduct);
-         $em->flush();
-         return $this->redirectToRoute('orderpurchase_show', ['id' => $orderPurchaseproduct->getOrderpurchase()->getId()]);
-      }
-      return $this->forward('InventoryBundle:OrderPurchase:show', ['orderPurchase' => $orderPurchaser]);
-   }
 
    /**
     * Displays a form to edit an existing orderPurchase entity.
