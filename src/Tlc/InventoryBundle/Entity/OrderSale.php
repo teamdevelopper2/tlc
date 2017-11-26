@@ -17,6 +17,7 @@ class OrderSale
    public function __construct()
    {
       $this->orderSaleProducts = new ArrayCollection();
+      $this->status = false;
    }
 
    /**
@@ -49,6 +50,12 @@ class OrderSale
     */
    private $orderSaleProducts;
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="status", type="boolean")
+     */
+    private $status;
+
 
    /**
     * Get id
@@ -73,6 +80,26 @@ class OrderSale
 
       return $this;
    }
+
+    /**
+     * @return bool
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+
 
    /**
     * Get dateOrder

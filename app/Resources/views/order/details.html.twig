@@ -67,11 +67,17 @@
                             </tbody>
                         </table>
                     </div>
+                    <div>
+                        <a type="button" href="{{ path('ordersale_index') }}" class="btn btn-sm btn-primary left-align"><< Retour</a>
+                        <span class="col-md-offset-4"></span>
+                        <a type="button" href="{{ path('ordersale_validate_command', {'id': ordersale.id }) }}" class="btn btn-sm btn-success right">Valider la commande</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    {#{% include(':order:factureSale.html.twig') %}#}
 {% endblock %}
 
 {% block javascripts %}

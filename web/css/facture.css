@@ -1,0 +1,308 @@
+/*-----------------------------------*\
+    Impression print
+\*-----------------------------------*/
+/*.imprimer, .vnav, #baniere, #releveretattrx, #user_connecte, #copyright, .enveloppe, ul, .titre{
+   display: none;
+}*/
+
+fieldset {
+   padding: 5px;
+   margin: 2.5px;
+   border: 1px solid #ccc;
+}
+
+legend {
+   font-size: 13px;
+   border-width: 0pt 0pt 0px;
+   width: 60%;
+   margin-bottom: 1px;
+}
+
+fieldset.cash {
+   width: 98.5%;
+}
+
+fieldset.exp {
+   float: left;
+   width: 49%;
+   vertical-align: top;
+   min-height: 125px;
+
+}
+fieldset.des {
+   width: 49%;
+   vertical-align: top;
+   min-height: 125px;
+}
+
+fieldset.trans {
+   float: left;
+   width: 49%;
+   vertical-align: top;
+   height: 135px;
+
+}
+
+fieldset.mention {
+
+   width: 49%;
+   vertical-align: top;
+   height: 135px;
+}
+
+fieldset.client {
+   float: left;
+   width: 49%;
+   vertical-align: top;
+   height: 65px;
+}
+
+fieldset.agence {
+
+   width: 49%;
+   vertical-align: top;
+   height: 65px;
+}
+
+.paction {
+   width: 100%;
+   float: left;
+   border: 0px;
+   padding: 0px;
+   background-color: #fff;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   box-shadow: none;
+}
+
+pre {
+   margin-right: 0;
+   margin-left: 0;
+   width: auto;
+   background-color: #fff;
+   font-size: 4px;
+   padding: 0px;
+   border: 0px;
+   border-radius: 0px;
+
+}
+
+.libelle {
+   font-weight: bold;
+}
+
+@page {
+   size: 10cm;
+   margin: 0cm;
+}
+
+/*-----------------------------------*\
+    Impression
+\*-----------------------------------*/
+
+fieldset {
+   padding: 5px;
+   margin: 2.5px;
+   border: 1px solid #ccc;
+
+}
+
+legend {
+   font-size: 13px;
+   border-width: 0pt 0pt 0px;
+   width: 60%;
+   margin-bottom: 1px;
+}
+
+.on {
+   display: block;
+}
+
+.off {
+   display: none;
+}
+
+.btn-group {
+   margin: 10px;
+}
+
+.retour {
+   display: inline-block;
+   float: right;
+   margin-right: 50%
+}
+
+.btn-success {
+   background-color: #5CB85C;
+   border-color: #4CAE4C;
+   color: #FFFFFF;
+}
+
+.btn {
+   -moz-user-select: none;
+   background-image: none;
+   border: 1px solid transparent;
+   border-radius: 4px 4px 4px 4px;
+   cursor: pointer;
+   display: inline-block;
+   font-size: 14px;
+   font-weight: 400;
+   line-height: 1.42857;
+   margin-bottom: 0;
+   padding: 4px 8px;
+   text-align: center;
+   vertical-align: middle;
+   white-space: nowrap;
+}
+
+.btn-default {
+   background-color: #FFFFFF;
+   border-color: #CCCCCC;
+   color: #333333;
+}
+
+.btn-success:hover {
+   background: #47A447
+}
+
+* {
+   box-sizing: border-box;
+   -moz-box-sizing: border-box;
+}
+
+.page {
+   width: 21cm;
+   /*min-height: 29.7cm;*/
+   padding: 0.4cm;
+   margin: 0cm auto;
+   border: 1px #D3D3D3 solid;
+   border-radius: 5px;
+   background: white;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.subpage {
+   padding: 0.3cm;
+   border: 2px #ccc solid;
+   /*height: 300mm;*/
+
+   padding-top: 0.1cm;
+   padding-bottom: 0.1cm;
+}
+
+fieldset.cash {
+   width: 98.5%;
+}
+
+fieldset.exp {
+   float: left;
+   width: 49%;
+   vertical-align: top;
+   min-height: 125px;
+
+}
+
+fieldset.cmd {
+   float: left;
+   width: 49%;
+   vertical-align: top;
+   min-height: 150px;
+
+}
+
+fieldset.des {
+
+   width: 49%;
+   vertical-align: top;
+   min-height: 125px;
+   margin-top: 5px;
+}
+
+fieldset.trans {
+   float: left;
+   width: 49%;
+   vertical-align: top;
+   height: 135px;
+
+}
+
+fieldset.mention {
+
+   width: 49%;
+   vertical-align: top;
+   height: 135px;
+   margin-top: 5px;
+}
+
+fieldset.client {
+   float: left;
+   width: 49%;
+   vertical-align: top;
+   height: 65px;
+}
+
+fieldset.agence {
+
+   width: 49%;
+   vertical-align: top;
+   height: 65px;
+   margin-top: 5px;
+}
+
+.clear {
+   clear: both;
+}
+
+pre {
+   margin-right: auto;
+   margin-left: auto;
+   width: 650px;
+   background-color: #fff;
+   overflow: hidden;
+   font-size: 12px;
+}
+
+@page {
+   size: A4;
+   margin: 0;
+}
+
+@media print {
+   .page {
+      margin: 0;
+      border: initial;
+      border-radius: initial;
+      width: initial;
+      min-height: initial;
+      box-shadow: initial;
+      background: initial;
+      page-break-after: always;
+   }
+
+   pre {
+      margin-right: 0;
+      margin-left: 0;
+      width: auto;
+      background-color: #fff;
+      font-size: 4px;
+      padding: 0px;
+      border: 0px;
+      border-radius: 0px;
+
+   }
+}
+
+/* Bobo Moneygram css */
+#recu_moneygram p, #recu_moneygram2 p {
+   font-size: 13px;
+   padding: 0px;
+}
+
+/* Bobo Moneygram css */
+#recu_moneygram .border-bottom, #recu_moneygram2 .border-bottom {
+   border: 1px solid black;
+   padding: 0;
+}
+
+

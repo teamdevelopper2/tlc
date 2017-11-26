@@ -1,0 +1,84 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/facture.css') }}">
+    <style type="text/css" media="print">
+        .no-print { display: none; }
+        #factureID{
+            width: 100%;
+            margin-right: 20%;
+            /*margin: 0 auto;*/
+        }
+    </style>
+{% endblock %}
+
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div id="frame_a4" class="on">
+        <div style="margin-left:auto;margin-right:auto;width:300px;margin-bottom: 2px;" class="no-print">
+            <a style="text-align:center;" class="imprimer btn btn-sm btn-primary" href="{{ path('ordersale_list_valid_command') }}" ><i class="glyphicon glyphicon-chevron-left"></i> Retour</a>
+            <input style="text-align:center;" class="imprimer btn btn-sm btn-success" type="submit" value="Imprimer" onclick="javascript:window.print()"/>
+        </div>
+
+        <div class="book" id="factureID">
+            <div class="page">
+                <div class="row" style="margin-top: 20px; margin-bottom: 30px;">
+                    <div class="col-lg-offset-1 col-md-6"><img src="{{ asset('img/logo.png') }}" height="105"></div>
+                    <div class="col-md-5">
+                        <strong>Client n°: {{ ordersale.client.id }}</strong><br />
+                        <strong>Raison social: rs:112</strong><br />
+                        <strong>Nom: {{ ordersale.client.fisrtname }} {{ ordersale.client.lastname }}</strong><br />
+                        <strong>adresse: {{ ordersale.client.address }}</strong><br />
+                        <strong>Tel: {{ ordersale.client.phone }}</strong><br />
+                        <strong>Email: {{ ordersale.client.email }}</strong><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6"><h3>Facture Achat N°: {{ ordersale.id }}</h3></div>
+                    <div class="col-md-5" style="padding-top: 25px;"><strong>Date de commande: {{ ordersale.dateOrder | date('d/m/Y') }}</strong></div>
+                </div>
+
+                <div class="row" style="margin-top: 20px;">
+                    <table class="table table-condensed table-bordered" style="margin: 4px; width: 98%;">
+                        <thead>
+                        <th>id_produit</th>
+                        <th>Designation</th>
+                        <th>Categorie</th>
+                        <th>Prix unitaire(FCFA)</th>
+                        <th>Qte</th>
+                        <th>Montant(FCFA)</th>
+                        </thead>
+                        <tbody>
+                        {% for orderSaleProduct in ordersale.orderSaleProducts %}
+                        <tr>
+                            <td>{{ orderSaleProduct.product.id }}</td>
+                            <td>{{ orderSaleProduct.product.designation }}</td>
+                            <td>{{ orderSaleProduct.product.category.name }}</td>
+                            <td class="text-right">{{ orderSaleProduct.product.price }}</td>
+                            <td class="text-right">{{ orderSaleProduct.amount }}</td>
+                            <td class="text-right">{{ orderSaleProduct.amount *  orderSaleProduct.product.price }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-offset-7 col-md-5">
+                        <p style="border: 1px solid #000;"></p>
+                        {% set total = 0 %}
+                        {% for orderSaleProduct in ordersale.orderSaleProducts %}
+                        {%  set total = orderSaleProduct.amount *  orderSaleProduct.product.price  + total %}
+                        {% endfor %}
+                        <h4>Montant Total : <span class="pull-right">{{ total }} FCFA</span></h4>
+                        <p style="border: 1px solid #000;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/facture.js') }}"></script>
+{% endblock %}
+
