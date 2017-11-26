@@ -122,7 +122,6 @@
         </div>
 
         <script src="{{ asset('js/functions.js') }}"></script>
-        {% block javascripts %}{% endblock %}
         {# js #}
         <script src="{{ asset('js/ajax.js') }}"></script>
 
@@ -172,5 +171,7 @@
             format: 'dd/mm/yyyy',
           });
         </script>
+
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -7,6 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Tlc\InventoryBundle\Entity\OrderSale;
+use Tlc\InventoryBundle\Entity\OrderSaleProduct;
+use Tlc\InventoryBundle\Form\OrderSaleProductType;
+use Tlc\InventoryBundle\Form\OrderSaleProductype;
 use Tlc\InventoryBundle\Form\OrderSaleType;
 
 /**
@@ -36,7 +39,7 @@ class OrderSaleController extends Controller
     * @param Request $request
     * @return \Symfony\Component\HttpFoundation\Response
     *
-    * @Route(name="ordersale_new")
+    * @Route(path="/new", name="ordersale_new")
     */
    public function newAction(Request $request)
    {
@@ -51,7 +54,30 @@ class OrderSaleController extends Controller
 
          return $this->redirectToRoute('ordersale_details', array('id' => $orderSale->getId()));
       }
+
       return $this->forward('InventoryBundle:OrderSale:index');
+   }
+
+    /**
+     * @param Request $request
+     * @param OrderSale $orderSale
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route(path="/addProduct/{id}", name="ordersale_saleproduct")
+     */
+   public function saleProductAction(Request $request, OrderSale $orderSale)
+   {
+      $orderSaleProduct = new OrderSaleProduct();
+      $form = $this->createForm(OrderSaleProductType::class, $orderSaleProduct);
+      $form->handleRequest($request);
+
+      if ($form->isSubmitted() && $form->isValid()) {
+         $em = $this->getDoctrine()->getManager();
+         $orderSaleProduct->setOrderSale($orderSale);
+         $em->persist($orderSaleProduct);
+         $em->flush();
+         return $this->redirectToRoute('ordersale_details', array('id' => $orderSaleProduct->getOrderSale()->getId()));
+      }
+      return $this->forward('InventoryBundle:OrderSale:show', ['orderSale' => $orderSale]);
    }
 
    /**
@@ -64,9 +90,12 @@ class OrderSaleController extends Controller
     */
    public function showAction(OrderSale $orderSale)
    {
-//      $deleteForm = $this->createDeleteForm($orderSale);
+       $form  = $this->createForm(OrderSaleProductType::class, new OrderSaleProduct())->createView();
+       $commande = $this->getDoctrine()->getRepository('InventoryBundle:OrderSaleProduct')->findBy(['orderSale' => $orderSale]);
 
-      return $this->render('order/details.html.twig', array('ordersale' => $orderSale));
+      return $this->render('order/details.html.twig', ['ordersale' => $orderSale, 'form' => $form, 'commande' => $commande]);
    }
+
+
 
 }

@@ -9,19 +9,82 @@
                     <h2><i class="glyphicon glyphicon-user"></i> Details Commande</h2>
                 </div>
                 <div class="box-content">
-                    <div class="box-content">
-                        <ul class="nav nav-tabs" id="myTab">
-                            <li class="active"><a href="#ordersale">Produits</a></li>
+                    <div class="title-details">
+                        <ul style="list-style-type: none;">
+                            <li class="row">
+                                <strong class="col-sm-2">Facture ID:</strong>
+                                <input readonly class="col-sm-2" type="text" value="{{ ordersale.id }}">
+                            </li>
+                            <li class="row">
+                                <strong class="col-sm-2">Client:</strong>
+                                <input readonly class="col-sm-2" type="text"
+                                       value="{{ ordersale.client.fisrtname ~ ' ' ~ ordersale.client.lastname }}">
+                            </li>
+                            <li class="row">
+                                <strong class="col-sm-2">Date commande:</strong>
+                                <input readonly class="col-sm-2" type="text"
+                                       value="{{ ordersale.dateOrder | date('d/m/Y') }}">
+                            </li>
                         </ul>
-
-                        <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane active" id="ordersale" style="padding-top: 10px;">
-                            </div>
-                        </div>
+                    </div>
+                    <div class="tlc-table">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID Produit</th>
+                                <th>Produit</th>
+                                <th>Quantité</th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in commande %}
+                                <tr>
+                                    <td class="idProduct">{{ order.product.id }}</td>
+                                    <td>{{ order.product.designation }}</td>
+                                    <td>{{ order.amount }}</td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <form action="{{ path('ordersale_saleproduct', {'id': ordersale.id}) }}" method="post">
+                                    <span hidden="hidden">{{ form_errors(form) }}</span>
+                                    <td>Ligne de commande</td>
+                                    <td>
+                                        {{ form_errors(form.product) }}
+                                        {{ form_widget(form.product) }}
+                                    </td>
+                                    <td>
+                                        {{ form_errors(form.amount) }}
+                                        {{ form_widget(form.amount) }}
+                                    </td>
+                                    <td style="border-right: inherit;">
+                                        {{ form_widget(form._token) }}
+                                        <button type="submit" class="btn btn-sm btn-primary">Valider</button>
+                                    </td>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      // Cache tous les produits dejà choisis
+      $('#tlc_inventorybundle_ordersaleproduct_product option').each(function () {
+        var option = $(this);
+        $('.idProduct').each(function () {
+          if (option.val() == $(this).text()) {
+            $(option).hide();
+          }
+        });
+      })
+      $('#tlc_inventorybundle_ordersaleproduct_product').prepend('<option selected></option>')
+    </script>
 {% endblock %}

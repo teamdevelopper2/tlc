@@ -10,78 +10,69 @@
                 </div>
                 <div class="box-content">
                     <div class="box-content">
-                        <ul class="nav nav-tabs" id="myTab">
-                            <li class="active"><a href="#ordersale">Commande</a></li>
-                        </ul>
+                        <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                            <thead>
+                            <tr>
+                                <th>ID Facture</th>
+                                <th>ID Client</th>
+                                <th>Date Commande</th>
+                                <th>Montant</th>
+                                <th>Delete</th>
+                                <th>Edit</th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for ordersale in ordersales %}
+                                <tr>
+                                    <td>{{ ordersale.id }}</td>
+                                    <td>{{ ordersale.client.fisrtname }} {{ ordersale.client.lastname }}</td>
+                                    <td>{{ ordersale.dateOrder | date('d/m/Y')}}</td>
+                                    <td>{{ ordersale.totalAmount }}</td>
+                                    <td class="center">
+                                        <a class="btn btn-sm btn-success" href="{{ path('ordersale_details', {'id': ordersale.id}) }}">
+                                            <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                                            View
+                                        </a>
+                                    </td>
+                                    <td class="center">
+                                        <a class="btn btn-sm btn-info" href="#">
+                                            <i class="glyphicon glyphicon-edit icon-white"></i>
+                                            Edit
+                                        </a>
+                                    </td>
+                                    <td class="center">
+                                        <a class="btn btn-sm btn-danger" href="#">
+                                            <i class="glyphicon glyphicon-trash icon-white"></i>
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
 
-                        <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane active" id="ordersale" style="padding-top: 10px;">
-                                {# Liste factures #}
-                                <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
-                                    <thead>
-                                    <tr>
-                                        <th>ID Facture</th>
-                                        <th>ID Client</th>
-                                        <th>Date Commande</th>
-                                        <th>Montant</th>
-                                        <th>Delete</th>
-                                        <th>Edit</th>
-                                        <th>Details</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for ordersale in ordersales %}
-                                        <tr>
-                                            <td>{{ ordersale.id }}</td>
-                                            <td>{{ ordersale.client.fisrtname }} {{ ordersale.client.lastname }}</td>
-                                            <td>{{ ordersale.dateOrder | date('d/m/Y')}}</td>
-                                            <td>{{ ordersale.totalAmount }}</td>
-                                            <td class="center">
-                                                <a class="btn btn-sm btn-success" href="#">
-                                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
-                                                    View
-                                                </a>
-                                            </td>
-                                            <td class="center">
-                                                <a class="btn btn-sm btn-info" href="#">
-                                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                                    Edit
-                                                </a>
-                                            </td>
-                                            <td class="center">
-                                                <a class="btn btn-sm btn-danger" href="#">
-                                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-
-                                    <tr>
-                                        <form action="{{ path('ordersale_new') }}" method="post">
-                                            <span hidden="hidden">{{ form_errors(form) }}</span>
-                                            <td>Ligne commande</td>
-                                            <td>
-                                                {{ form_errors(form.client) }}
-                                                {{ form_widget(form.client, {'attr': {'placeholder': 'ID Client'} }) }}
-                                            </td>
-                                            <td>
-                                                {{ form_errors(form.dateOrder) }}
-                                                {{ form_widget(form.dateOrder, {'attr': {'placeholder': 'Date commande', 'class': 'datepicker'} }) }}
-                                            </td>
-                                            <td style="border-right: inherit;">
-                                                {{ form_widget(form._token) }}
-                                                <button type="submit" class="btn btn-sm btn-primary">Valider</button>
-                                            </td>
-                                            <td style="border: inherit;"></td>
-                                            <td style="border: inherit;"></td>
-                                            <td style="border: inherit;"></td>
-                                        </form>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                <tr>
+                                    <form action="{{ path('ordersale_new') }}" method="post">
+                                        <span hidden="hidden">{{ form_errors(form) }}</span>
+                                        <td>Ligne commande</td>
+                                        <td>
+                                            {{ form_errors(form.client) }}
+                                            {{ form_widget(form.client, {'attr': {'placeholder': 'ID Client'} }) }}
+                                        </td>
+                                        <td>
+                                            {{ form_errors(form.dateOrder) }}
+                                            {{ form_widget(form.dateOrder, {'attr': {'placeholder': 'Date commande', 'class': 'datepicker'} }) }}
+                                        </td>
+                                        <td style="border-right: inherit;">
+                                            {{ form_widget(form._token) }}
+                                            <button type="submit" class="btn btn-sm btn-primary">Valider</button>
+                                        </td>
+                                        <td style="border: inherit;"></td>
+                                        <td style="border: inherit;"></td>
+                                        <td style="border: inherit;"></td>
+                                    </form>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
